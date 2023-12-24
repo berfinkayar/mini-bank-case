@@ -1,0 +1,28 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: springbootDB
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_LOWER_CASE_TABLE_NAMES: 2
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  spring-app:
+    build: .
+    container_name: spring-app-container
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/springbootDB
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - mysql
+
