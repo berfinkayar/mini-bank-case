@@ -1,7 +1,5 @@
 package com.miniproject.controller;
-import com.miniproject.exception.InsufficientBalanceException;
-import com.miniproject.exception.AccountNotFoundException;
-import com.miniproject.exception.DifferentCurrencyException;
+import com.miniproject.exception.*;
 import com.miniproject.model.Account;
 import com.miniproject.repository.UserRepository;
 import com.miniproject.service.AccountService;
@@ -27,6 +25,7 @@ public class AccountController {
         this.userRepository = userRepository;
     }
 
+    // Get all accounts of a user
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Account>> getAllAccounts(@PathVariable Long userId) {
         // Check if the user exists
@@ -38,12 +37,14 @@ public class AccountController {
         return new ResponseEntity<>(userAccounts, HttpStatus.OK);
     }
 
+    // Create new account for user
     @PostMapping("/user/{userId}")
     public ResponseEntity<Account> createAccount(@PathVariable Long userId, @RequestBody Account newAccount) {
         Account createdAccount = accountService.createAccount(userId, newAccount);
         return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
     }
 
+    // Delete account
     @DeleteMapping("/{accountId}")
     public ResponseEntity<String> deleteAccount(@PathVariable Long accountId) {
         boolean deleted = accountService.deleteAccount(accountId);
@@ -55,6 +56,7 @@ public class AccountController {
         }
     }
 
+    // Transfer balance between accounts
     @PostMapping("/transfer")
     public ResponseEntity<String> transferBalance(@RequestParam Long fromAccountId, @RequestParam Long toAccountId, @RequestParam BigDecimal amount) {
         try {
