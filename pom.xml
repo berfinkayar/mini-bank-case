@@ -44,18 +44,10 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
 		</dependency>
- </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-		            <groupId>org.apache.maven.plugins</groupId>
-		            <artifactId>maven-compiler-plugin</artifactId>
-		            <version>3.6.0</version>
-		            <configuration>
-		                <release>11</release> 
-		            </configuration>
-		        </plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
